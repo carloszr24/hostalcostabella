@@ -130,15 +130,9 @@ export default function Home() {
             Fuengirola te espera
           </h1>
           <p className="hero-subtitle">
-            Hostal Costabella, a pasos de la playa y el corazón de Fuengirola.
-            Reserva directamente y consigue el mejor precio.
+            Hostal Costabella, a pasos de la playa y del centro de Fuengirola.
           </p>
           <HeroBookingWidget />
-          <div className="hero-actions">
-            <a href="tel:+34614060645" className="btn btn-white">
-              Llamar ahora
-            </a>
-          </div>
         </div>
       </section>
 
@@ -328,11 +322,8 @@ export default function Home() {
           <p>Mejor precio garantizado reservando directamente con nosotros.</p>
           <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
             <Link href="/reservar" className="btn btn-primary">
-              Reservar ahora
+              Reservar
             </Link>
-            <a href="tel:+34614060645" className="btn btn-outline" style={{ borderColor: "#ffffff", color: "#ffffff" }}>
-              Llamar al hostal
-            </a>
           </div>
         </div>
       </section>
