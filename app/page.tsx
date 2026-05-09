@@ -1,730 +1,422 @@
-"use client";
+import Link from "next/link";
+import FAQAccordion from "./components/FAQAccordion";
+import {
+  FaMapLocationDot,
+  FaBed,
+  FaTag,
+  FaHandshake,
+  FaStar,
+  FaWhatsapp,
+} from "react-icons/fa6";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+/* ── Datos ── */
 
-const BOOKING_HOTEL_URL = "https://www.booking.com/hotel/es/estudios-los-arcos.es.html";
-const BOOKING_DEST_ID = "-404164";
-const BOOKING_DEFAULT_DAYS = 2;
-const DEMO_AVAILABILITY_PATH = "/disponibilidad";
-const HERO_SLIDES = [
-  {
-    src: "/images/entrada-los-arcos.png",
-    alt: "Entrada de Estudios Los Arcos",
-  },
-  {
-    src: "/images/comedor-los-arcos.png",
-    alt: "Comedor de Estudios Los Arcos",
-  },
-  {
-    src: "/images/habitacion-los-arcos.png",
-    alt: "Habitación de Estudios Los Arcos",
-  },
-  {
-    src: "/images/vistas-teruel.png",
-    alt: "Vistas de Teruel",
-  },
-];
-const TERUEL_SLIDES = [
-  {
-    src: "/images/teruel-carrusel-1.jpg",
-    alt: "Teruel carrusel 1",
-  },
-  {
-    src: "/images/teruel-carrusel-2.jpg",
-    alt: "Teruel carrusel 2",
-  },
-  {
-    src: "/images/teruel-carrusel-3.jpg",
-    alt: "Teruel carrusel 3",
-  },
-  {
-    src: "/images/teruel-carrusel-4.jpg",
-    alt: "Teruel carrusel 4",
-  },
-  {
-    src: "/images/teruel-carrusel-5.jpg",
-    alt: "Teruel carrusel 5",
-  },
-  {
-    src: "/images/teruel-carrusel-6.jpg",
-    alt: "Teruel carrusel 6",
-  },
-];
 const ROOMS = [
   {
-    name: "Habitación Doble",
-    image: "/images/habitacion-doble.png",
-    size: "22 m²",
-    bed: "1 cama doble",
-    summary:
-      "Habitación con baño privado y zona de cocina completa. Incluye entrada independiente, TV de pantalla plana y toda la unidad accesible en silla de ruedas.",
-    highlights: ["Zona de cocina privada", "Baño privado", "Vistas", "WiFi gratis"],
-    kitchen: ["Nevera", "Cafetera", "Microondas", "Utensilios", "Horno", "Fogones", "Tostadora"],
-    bathroom: ["Ducha a ras de suelo", "Artículos de aseo gratis", "Toallas", "Papel higiénico"],
+    name: "Habitación Doble Matrimonial",
+    capacity: "Hasta 2 personas",
+    desc: "Amplia habitación con cama de matrimonio, baño privado y todo lo necesario para un descanso perfecto.",
+    features: ["Cama matrimonial", "Baño privado", "WiFi gratis", "TV"],
+    imgPlaceholder: "Doble Matrimonial",
   },
   {
-    name: "Apartamento Estudio",
-    image: "/images/apartamento-estudio.png",
-    size: "22 m²",
-    bed: "1 cama doble + 1 sofá cama",
-    summary:
-      "Apartamento entero con aire acondicionado individual, cocina privada y vistas a la ciudad. Perfecto para una estancia cómoda en pareja o en familia.",
-    highlights: ["Apartamento entero", "Cocina privada", "Vistas a la ciudad", "Aire acondicionado", "WiFi gratis"],
-    kitchen: ["Nevera", "Cafetera", "Microondas", "Utensilios", "Horno", "Fogones", "Tostadora"],
-    bathroom: ["Ducha a ras de suelo", "Artículos de aseo gratis", "Toallas", "Papel higiénico"],
+    name: "Habitación Doble Camas Individuales",
+    capacity: "Hasta 2 personas",
+    desc: "Dos camas individuales perfectas para viajes con amigos, compañeros o familia.",
+    features: ["2 camas individuales", "Baño privado", "WiFi gratis", "TV"],
+    imgPlaceholder: "Doble Individual",
   },
   {
-    name: "Habitación Familiar con baño privado",
-    image: "/images/habitacion-familiar.png",
-    size: "22 m²",
-    bed: "1 cama doble + 1 sofá cama",
-    summary:
-      "Habitación familiar con cocina privada, aire acondicionado y vistas a la ciudad. Equipada para familias con juegos de mesa y barandillas de seguridad para bebés.",
-    highlights: ["Cocina privada", "Baño privado", "Vistas a la ciudad", "Aire acondicionado", "WiFi gratis"],
-    kitchen: ["Nevera", "Cafetera", "Microondas", "Utensilios", "Horno", "Fogones", "Tostadora"],
-    bathroom: ["Ducha a ras de suelo", "Artículos de aseo gratis", "Toallas", "Papel higiénico"],
-  },
-];
-const REVIEWS = [
-  {
-    author: "Xsanz",
-    country: "España",
-    date: "19 abril 2026",
-    type: "En familia",
-    score: 10,
-    title: "Excepcional",
-    text: "La ubicación es perfecta para visitar Teruel, a 10 minutos andando del centro. Fuimos 2 adultos y 2 niñas y estuvimos muy cómodos.",
+    name: "Habitación Triple",
+    capacity: "Hasta 3 personas",
+    desc: "Tres plazas cómodas para grupos pequeños o familias con niño.",
+    features: ["3 plazas", "Baño privado", "WiFi gratis", "TV"],
+    imgPlaceholder: "Triple",
   },
   {
-    author: "Ruben",
-    country: "España",
-    date: "5 abril 2026",
-    type: "En familia",
-    score: 10,
-    title: "Excepcional",
-    text: "Hemos pasado unos días en familia estupendos, la ubicación y las instalaciones son excelentes. Para repetir sin duda.",
+    name: "Habitación Doble + Individual",
+    capacity: "Hasta 3 personas",
+    desc: "Combinación de cama doble y una individual, ideal para familias con un hijo.",
+    features: ["Cama doble + individual", "Baño privado", "WiFi gratis", "TV"],
+    imgPlaceholder: "Doble + Individual",
   },
   {
-    author: "Lisa",
-    country: "España",
-    date: "3 abril 2026",
-    type: "En pareja",
-    score: 10,
-    title: "Excelente",
-    text: "Todo muy cómodo y limpio, además de cerca del centro turístico.",
+    name: "Habitación Familiar",
+    capacity: "Hasta 4 personas",
+    desc: "Nuestra habitación más amplia, con cama doble y dos individuales. Perfecta para toda la familia.",
+    features: ["4 plazas", "Baño privado", "WiFi gratis", "TV"],
+    imgPlaceholder: "Familiar",
   },
   {
-    author: "Claudia",
-    country: "España",
-    date: "23 marzo 2026",
-    type: "En familia",
-    score: 10,
-    title: "Genial",
-    text: "Bien situado, anfitrión atento, check-in fácil y camas cómodas. Estuvimos como en casa.",
-  },
-  {
-    author: "Celia",
-    country: "España",
-    date: "3 marzo 2026",
-    type: "En familia",
-    score: 10,
-    title: "Excelente",
-    text: "Todo limpio e impecable, ubicación de 10 y calidad-precio excelente. Si volvemos a Teruel repetiremos.",
-  },
-  {
-    author: "Tomasz",
-    country: "Polonia",
-    date: "26 febrero 2026",
-    type: "Viajero solo",
-    score: 10,
-    title: "Muy recomendable",
-    text: "Ubicación excelente para Casco Antiguo y Universidad. Zona tranquila y anfitrión muy atento.",
-  },
-  {
-    author: "Lidia",
-    country: "España",
-    date: "9 noviembre 2025",
-    type: "En pareja",
-    score: 10,
-    title: "Todo genial",
-    text: "Ubicación excelente y alojamiento tal como en las fotos, con todo muy limpio.",
-  },
-  {
-    author: "David",
-    country: "España",
-    date: "11 septiembre 2025",
-    type: "En grupo",
-    score: 10,
-    title: "Excepcional",
-    text: "Muy buena ubicación, alojamiento limpio y muchas facilidades para guardar las bicicletas.",
+    name: "Habitación Individual",
+    capacity: "1 persona",
+    desc: "Habitación individual funcional y acogedora para viajeros solos o estancias de trabajo.",
+    features: ["1 plaza", "Baño privado", "WiFi gratis", "TV"],
+    imgPlaceholder: "Individual",
   },
 ];
 
-const REVIEWS_PER_PAGE = 4;
+const VENTAJAS = [
+  {
+    icon: FaMapLocationDot,
+    title: "Ubicación Privilegiada",
+    desc: "A pocos metros de la playa y del centro de Fuengirola. Cerca de todo lo que necesitas.",
+  },
+  {
+    icon: FaBed,
+    title: "Habitaciones Cómodas",
+    desc: "Espacios limpios, acogedores y bien equipados para que descanses como en casa.",
+  },
+  {
+    icon: FaTag,
+    title: "Mejor Precio",
+    desc: "Reserva directamente con nosotros y garantiza el precio más bajo. Sin intermediarios.",
+  },
+  {
+    icon: FaHandshake,
+    title: "Atención Personalizada",
+    desc: "Un equipo cercano y disponible para hacer de tu estancia una experiencia memorable.",
+  },
+];
 
-function buildReviewPages() {
-  const pages: (typeof REVIEWS)[] = [];
-  for (let i = 0; i < REVIEWS.length; i += REVIEWS_PER_PAGE) {
-    const page = REVIEWS.slice(i, i + REVIEWS_PER_PAGE);
-    if (page.length < REVIEWS_PER_PAGE) {
-      page.push(...REVIEWS.slice(0, REVIEWS_PER_PAGE - page.length));
-    }
-    pages.push(page);
-  }
-  return pages;
+const RESENAS = [
+  {
+    author: "María G.",
+    type: "En pareja",
+    text: "Lugar increíble a pasos de la playa. La habitación estaba impecable y el trato del personal fue excelente. Repetiremos sin duda.",
+    rating: 5,
+  },
+  {
+    author: "Carlos R.",
+    type: "Viaje de trabajo",
+    text: "Hostal limpio, bien situado y con muy buena relación calidad-precio. Todo lo que necesitas para una estancia sin complicaciones en Fuengirola.",
+    rating: 5,
+  },
+  {
+    author: "Ana y Javier",
+    type: "En familia",
+    text: "Fantástico para ir con niños. Habitación espaciosa, muy cerca del paseo marítimo y del centro. La atención fue de 10.",
+    rating: 5,
+  },
+  {
+    author: "Sophie L.",
+    type: "Viajera sola",
+    text: "Me sentí muy segura y cómoda. La ubicación es perfecta para explorar Fuengirola y los pueblos blancos de alrededor.",
+    rating: 5,
+  },
+];
+
+const WHATSAPP_MESSAGE = encodeURIComponent(
+  "Hola 👋, me gustaría consultar disponibilidad en Hostal Costabella para las siguientes fechas:\n\n📅 Entrada:\n📅 Salida:\n👥 Número de huéspedes:\n\nGracias 😊"
+);
+
+/* ── Componente de Hero con Cloudbeds ── */
+function HeroCloudbedsPlaceholder() {
+  return (
+    <div
+      className="hero-widget"
+      style={{
+        padding: "28px",
+        textAlign: "center",
+      }}
+    >
+      <p style={{ fontSize: "0.8rem", color: "#888", marginBottom: "10px", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+        Motor de reservas
+      </p>
+      <p style={{ fontSize: "0.95rem", color: "#444", marginBottom: "18px" }}>
+        Reserva directamente en el hostal y obtén el mejor precio garantizado.
+      </p>
+      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
+        <Link
+          href="/habitaciones"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            background: "var(--hostal-yellow)",
+            color: "var(--hostal-dark)",
+            fontWeight: 700,
+            fontSize: "0.85rem",
+            textTransform: "uppercase",
+            letterSpacing: "2px",
+            padding: "16px 28px",
+            borderRadius: "7px",
+            textDecoration: "none",
+            transition: "background 0.2s ease, color 0.2s ease",
+          }}
+        >
+          Ver habitaciones
+        </Link>
+        <a
+          href={`https://wa.me/34614060645?text=${WHATSAPP_MESSAGE}`}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            background: "#25d366",
+            color: "#ffffff",
+            fontWeight: 700,
+            fontSize: "0.85rem",
+            textTransform: "uppercase",
+            letterSpacing: "2px",
+            padding: "16px 28px",
+            borderRadius: "7px",
+            textDecoration: "none",
+          }}
+        >
+          <FaWhatsapp />
+          Consultar por WhatsApp
+        </a>
+      </div>
+      {/* Cuando tengas el Property ID de Cloudbeds, reemplaza esto por:
+        <div id="ibe-container" />
+        y añade el script en un componente client con next/script:
+        <Script src="https://hotels.cloudbeds.com/widget/load/[PROPERTY_ID]" strategy="lazyOnload" />
+      */}
+    </div>
+  );
 }
 
-function formatDate(value: string) {
-  if (!value) return "";
-  const [y, m, d] = value.split("-");
-  const months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
-  return `${parseInt(d, 10)} ${months[parseInt(m, 10) - 1]} ${y}`;
-}
-
-function formatDateForInput(date: Date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function addDays(date: Date, days: number) {
-  const next = new Date(date);
-  next.setDate(next.getDate() + days);
-  return next;
-}
-
-function buildDemoAvailabilityUrl(params: URLSearchParams) {
-  const query = params.toString();
-  return `${DEMO_AVAILABILITY_PATH}${query ? `?${query}` : ""}`;
-}
-
+/* ── Page ── */
 export default function Home() {
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
-  const [rooms, setRooms] = useState(1);
-  const [checkinDisplay, setCheckinDisplay] = useState("");
-  const [checkoutDisplay, setCheckoutDisplay] = useState("");
-  const [isGuestsOpen, setIsGuestsOpen] = useState(false);
-  const reviewPages = buildReviewPages();
-  const [reviewPageIndex, setReviewPageIndex] = useState(reviewPages.length);
-  const [reviewTransition, setReviewTransition] = useState(true);
-  const [heroSlideIndex, setHeroSlideIndex] = useState(0);
-  const [teruelSlideIndex, setTeruelSlideIndex] = useState(0);
-  const guestsPanelRef = useRef<HTMLDivElement>(null);
-  const carouselReviewPages = [...reviewPages, ...reviewPages, ...reviewPages];
-  const quickAvailabilityParams = new URLSearchParams({
-    lang: "es",
-    selected_currency: "EUR",
-    do_availability_check: "1",
-    hp_avform: "1",
-    hp_group_set: "0",
-    origin: "hp",
-    src: "hotel",
-    type: "total",
-    sb_price_type: "total",
-    dest_id: BOOKING_DEST_ID,
-    dest_type: "city",
-    checkin: formatDateForInput(new Date()),
-    checkout: formatDateForInput(addDays(new Date(), BOOKING_DEFAULT_DAYS)),
-    group_adults: String(adults),
-    group_children: String(children),
-    no_rooms: String(rooms),
-  });
-  const quickAvailabilityUrl = buildDemoAvailabilityUrl(quickAvailabilityParams);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    document.querySelectorAll(".reveal").forEach((element) => {
-      observer.observe(element);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleBookingSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const params = new URLSearchParams();
-
-    formData.forEach((value, key) => {
-      if (typeof value === "string" && value.length > 0) {
-        params.set(key, value);
-      }
-    });
-
-    const checkin = params.get("checkin");
-    const checkout = params.get("checkout");
-
-    if (!checkin) {
-      params.set("checkin", formatDateForInput(new Date()));
-    }
-    if (!checkout) {
-      params.set("checkout", formatDateForInput(addDays(new Date(), BOOKING_DEFAULT_DAYS)));
-    }
-
-    const availabilityDemoUrl = buildDemoAvailabilityUrl(params);
-    window.location.assign(availabilityDemoUrl);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!guestsPanelRef.current) return;
-      if (!guestsPanelRef.current.contains(event.target as Node)) {
-        setIsGuestsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHeroSlideIndex((current) => (current + 1) % HERO_SLIDES.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setReviewTransition(true);
-      setReviewPageIndex((current) => current + 1);
-    }, 3200);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleReviewTrackTransitionEnd = () => {
-    if (reviewPageIndex >= reviewPages.length * 2) {
-      setReviewTransition(false);
-      setReviewPageIndex(reviewPages.length);
-      return;
-    }
-    if (reviewPageIndex < reviewPages.length) {
-      setReviewTransition(false);
-      setReviewPageIndex(reviewPages.length * 2 - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (reviewTransition) return;
-    const id = requestAnimationFrame(() => {
-      setReviewTransition(true);
-    });
-    return () => cancelAnimationFrame(id);
-  }, [reviewTransition]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTeruelSlideIndex((current) => (current + 1) % TERUEL_SLIDES.length);
-    }, 5500);
-    return () => clearInterval(interval);
-  }, []);
-
-  const goToPrevTeruelSlide = () => {
-    setTeruelSlideIndex((current) => (current - 1 + TERUEL_SLIDES.length) % TERUEL_SLIDES.length);
-  };
-
-  const goToNextTeruelSlide = () => {
-    setTeruelSlideIndex((current) => (current + 1) % TERUEL_SLIDES.length);
-  };
-
-  const goToPrevHeroSlide = () => {
-    setHeroSlideIndex((current) => (current - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
-  };
-
-  const goToNextHeroSlide = () => {
-    setHeroSlideIndex((current) => (current + 1) % HERO_SLIDES.length);
-  };
-
   return (
     <>
-      <nav>
-        <a href="tel:+34605872573" className="nav-phone" aria-label="Llamar al 605 87 25 73">
-          <span className="nav-phone-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="img" focusable="false">
-              <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.49c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.19 2.2z" />
-            </svg>
-          </span>
-          <span className="nav-phone-text">605 87 25 73</span>
-        </a>
-        <div className="nav-logo">
-          <Image
-            src="/images/logo-estudio-arcos.png"
-            alt="Logo Estudios Los Arcos"
-            width={230}
-            height={70}
-            className="brand-logo"
-            priority
-          />
-        </div>
-        <a href={BOOKING_HOTEL_URL} className="nav-reserve" target="_blank" rel="noreferrer">
-          HAZ TU RESERVA
-        </a>
-      </nav>
-
+      {/* 1. HERO */}
       <section className="hero">
-        {HERO_SLIDES.map((slide, index) => (
-          <div key={slide.src} className={`hero-slide ${index === heroSlideIndex ? "is-active" : ""}`}>
-            <img src={slide.src} alt={slide.alt} />
-          </div>
-        ))}
+        {/* Coloca el vídeo del hostal en /public/videos/hero-costabella.mp4 */}
+        <video
+          className="hero-video-bg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero-costabella.jpg"
+        >
+          <source src="/videos/hero-costabella.mp4" type="video/mp4" />
+        </video>
         <div className="hero-overlay" />
-        <button type="button" className="hero-nav hero-nav-prev" onClick={goToPrevHeroSlide} aria-label="Imagen anterior">
-          ‹
-        </button>
-        <button type="button" className="hero-nav hero-nav-next" onClick={goToNextHeroSlide} aria-label="Imagen siguiente">
-          ›
-        </button>
-        <div className="hero-dots">
-          {HERO_SLIDES.map((slide, index) => (
-            <button
-              key={slide.alt}
-              type="button"
-              className={`hero-dot ${index === heroSlideIndex ? "active" : ""}`}
-              onClick={() => setHeroSlideIndex(index)}
-              aria-label={`Ir a imagen ${index + 1}`}
-            />
-          ))}
-        </div>
-
         <div className="hero-content">
-          <p className="hero-eyebrow">Tu alojamiento en Teruel</p>
+          <p className="hero-eyebrow">Tu alojamiento en Fuengirola</p>
           <h1 className="hero-title">
-            Teruel desde <em>otro punto</em>
-            <br />
-            de vista
+            Fuengirola te espera
           </h1>
-
-          <div className="booking-card">
-            <form className="booking-inner" onSubmit={handleBookingSubmit}>
-              <input type="hidden" name="lang" value="es" />
-              <input type="hidden" name="selected_currency" value="EUR" />
-              <input type="hidden" name="do_availability_check" value="1" />
-              <input type="hidden" name="hp_avform" value="1" />
-              <input type="hidden" name="hp_group_set" value="0" />
-              <input type="hidden" name="origin" value="hp" />
-              <input type="hidden" name="src" value="hotel" />
-              <input type="hidden" name="type" value="total" />
-              <input type="hidden" name="sb_price_type" value="total" />
-              <input type="hidden" name="dest_id" value={BOOKING_DEST_ID} />
-              <input type="hidden" name="dest_type" value="city" />
-              <input type="hidden" name="group_adults" value={adults} />
-              <input type="hidden" name="group_children" value={children} />
-              <input type="hidden" name="no_rooms" value={rooms} />
-
-              <div className="bf-cell">
-                <span className="bf-label">Entrada</span>
-                <span className={`bf-value ${!checkinDisplay ? "placeholder" : ""}`}>{checkinDisplay || "Selecciona fecha"}</span>
-                <input
-                  type="date"
-                  name="checkin"
-                  className="bf-date-input"
-                  onChange={(e) => setCheckinDisplay(formatDate(e.target.value))}
-                />
-              </div>
-
-              <div className="bf-divider" />
-
-              <div className="bf-cell">
-                <span className="bf-label">Salida</span>
-                <span className={`bf-value ${!checkoutDisplay ? "placeholder" : ""}`}>
-                  {checkoutDisplay || "Selecciona fecha"}
-                </span>
-                <input
-                  type="date"
-                  name="checkout"
-                  className="bf-date-input"
-                  onChange={(e) => setCheckoutDisplay(formatDate(e.target.value))}
-                />
-              </div>
-
-              <div className="bf-divider" />
-
-              <div className="bf-cell bf-cell-guests" ref={guestsPanelRef} onClick={() => setIsGuestsOpen((p) => !p)}>
-                <span className="bf-label">Huéspedes</span>
-                <span className="bf-value">
-                  {adults} adulto{adults !== 1 ? "s" : ""}
-                  {children > 0 ? ` · ${children} niño${children !== 1 ? "s" : ""}` : ""}
-                </span>
-
-                {isGuestsOpen && (
-                  <div className="guests-popover" onClick={(e) => e.stopPropagation()}>
-                    {[
-                      { key: "adults", label: "Adultos", sub: "13 años o más", min: 1, max: 8, value: adults, set: setAdults },
-                      { key: "children", label: "Niños", sub: "2 – 12 años", min: 0, max: 6, value: children, set: setChildren },
-                      { key: "rooms", label: "Habitaciones", sub: null, min: 1, max: 4, value: rooms, set: setRooms },
-                    ].map(({ key, label, sub, min, max, value, set }) => (
-                      <div className="guest-row" key={key}>
-                        <div>
-                          <div className="guest-label">{label}</div>
-                          {sub && <div className="guest-sub">{sub}</div>}
-                        </div>
-                        <div className="guest-ctrl">
-                          <button
-                            type="button"
-                            className="g-btn"
-                            onClick={() => set((v) => Math.max(min, v - 1))}
-                            disabled={value <= min}
-                          >
-                            −
-                          </button>
-                          <span className="g-count">{value}</span>
-                          <button
-                            type="button"
-                            className="g-btn"
-                            onClick={() => set((v) => Math.min(max, v + 1))}
-                            disabled={value >= max}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <button type="submit" className="bf-search-btn">
-                <span className="bf-search-icon">↗</span>
-                Buscar disponibilidad
-              </button>
-            </form>
-          </div>
-
+          <p className="hero-subtitle">
+            Hostal Costabella, a pasos de la playa y el corazón de Fuengirola.
+            Reserva directamente y consigue el mejor precio.
+          </p>
+          <HeroCloudbedsPlaceholder />
           <div className="hero-actions">
-            <a href="#alojamientos" className="hero-cta">
-              Elige tu habitación <span className="cta-arrow">→</span>
+            <Link href="/habitaciones" className="btn btn-primary">
+              Ver habitaciones
+            </Link>
+            <a href="tel:+34614060645" className="btn btn-white">
+              Llamar ahora
             </a>
           </div>
         </div>
       </section>
 
-      <section className="alojamientos" id="alojamientos">
-        <div className="section-header reveal">
-          <p className="section-eyebrow">Nuestros alojamientos</p>
-          <h2 className="section-title">Elige tu opción ideal</h2>
-        </div>
-        <div className="cards">
-          {ROOMS.map((room, index) => (
-            <article key={room.name} className={`card reveal d${Math.min(index + 1, 3)}`}>
-              <div className="card-img">
-                <img src={room.image} alt={room.name} />
-              </div>
-              <div className="card-body">
-                <div className="card-title">{room.name}</div>
-                <p className="card-meta">
-                  <strong>{room.size}</strong> · {room.bed}
-                </p>
-                <p className="card-description">{room.summary}</p>
-                <ul className="card-features card-features-main">
-                  {room.highlights.map((feature) => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-                <div className="card-subsection">
-                  <p>Cocina</p>
-                  <ul className="card-features">
-                    {room.kitchen.map((item) => (
-                      <li key={`${room.name}-${item}`}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="card-subsection">
-                  <p>Baño</p>
-                  <ul className="card-features">
-                    {room.bathroom.map((item) => (
-                      <li key={`${room.name}-bath-${item}`}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <ul className="card-features card-features-main">
-                  <li>TV de pantalla plana</li>
-                  <li>Entrada privada</li>
-                  <li>Zona de comedor</li>
-                  <li>Apartamento privado en edificio</li>
-                </ul>
-                <a href={quickAvailabilityUrl} className="btn-card">
-                  Comprobar disponibilidad
-                </a>
-              </div>
-            </article>
-          ))}
+      {/* 2. DESCRIPCIÓN DEL HOSTAL */}
+      <section className="descripcion-section">
+        <div className="descripcion-inner">
+          <div className="descripcion-text">
+            <span className="section-eyebrow">Bienvenido</span>
+            <h2>Tu casa en la Costa del Sol</h2>
+            <p>
+              El Hostal Costabella es el alojamiento ideal para descubrir Fuengirola y toda la Costa del Sol.
+              Ubicado en plena Avenida de los Boliches, a pocos metros de la playa y del animado centro de la ciudad,
+              te ofrecemos habitaciones limpias, cómodas y a un precio inmejorable.
+            </p>
+            <p>
+              Ya sea que viajes en pareja, en familia o solo, en el Hostal Costabella encontrarás
+              el espacio perfecto para descansar y disfrutar del sol mediterráneo.
+              Reserva directamente con nosotros para garantizar el mejor precio disponible.
+            </p>
+            <Link href="/habitaciones" className="btn btn-primary">
+              Ver habitaciones →
+            </Link>
+          </div>
+          <div>
+            <div className="descripcion-image-placeholder">
+              {/* Añade aquí una imagen real del hostal */}
+              Foto del hostal
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="teruel-carousel-section" id="galeria" aria-label="Carrusel de Teruel">
-        <div className="teruel-carousel-track">
-          {TERUEL_SLIDES.map((slide, index) => (
-            <div key={slide.src} className={`teruel-slide ${index === teruelSlideIndex ? "is-active" : ""}`}>
-              <img src={slide.src} alt={slide.alt} />
-            </div>
-          ))}
-          <button type="button" className="teruel-nav teruel-nav-prev" onClick={goToPrevTeruelSlide} aria-label="Imagen anterior">
-            ‹
-          </button>
-          <button type="button" className="teruel-nav teruel-nav-next" onClick={goToNextTeruelSlide} aria-label="Imagen siguiente">
-            ›
-          </button>
-          <div className="teruel-dots">
-            {TERUEL_SLIDES.map((slide, index) => (
-              <button
-                key={slide.alt}
-                type="button"
-                className={`teruel-dot ${index === teruelSlideIndex ? "active" : ""}`}
-                onClick={() => setTeruelSlideIndex(index)}
-                aria-label={`Ir a imagen ${index + 1}`}
-              />
+      {/* 3. GRID DE HABITACIONES */}
+      <section className="rooms-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-eyebrow">Nuestras habitaciones</span>
+            <h2 className="section-title">Elige tu habitación ideal</h2>
+            <p className="section-lead">
+              Seis tipos de habitaciones para adaptarnos a tus necesidades, ya vengas solo, en pareja o con toda la familia.
+            </p>
+          </div>
+          <div className="rooms-grid">
+            {ROOMS.map((room) => (
+              <article key={room.name} className="room-card">
+                <div className="room-card-img">
+                  <span className="room-card-img-placeholder">{room.imgPlaceholder}</span>
+                </div>
+                <div className="room-card-body">
+                  <h3 className="room-card-title">{room.name}</h3>
+                  <p className="room-card-capacity">{room.capacity}</p>
+                  <p className="room-card-desc">{room.desc}</p>
+                  <div className="room-card-features">
+                    {room.features.map((f) => (
+                      <span key={f} className="room-card-feature">{f}</span>
+                    ))}
+                  </div>
+                  <a
+                    href={`https://wa.me/34614060645?text=${WHATSAPP_MESSAGE}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="room-card-btn"
+                  >
+                    Reservar
+                  </a>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="resenas" id="resenas">
-        <div className="resenas-inner">
-          <div className="resenas-grid reveal">
-            <div className="resenas-side">
-              <div className="booking-block">
-                <Image
-                  src="/images/rating-general.png"
-                  alt="Valoración general"
-                  width={520}
-                  height={360}
-                  className="rating-general-image"
-                />
-                <Image
-                  src="/images/logo-booking.png"
-                  alt="Logo Booking"
-                  width={360}
-                  height={96}
-                  className="booking-logo-large"
-                />
-                <p className="booking-comments-count">512 comentarios</p>
-              </div>
-              <div className="google-logo-slot">
-                <Image
-                  src="/images/logo-google.png"
-                  alt="Google"
-                  width={280}
-                  height={280}
-                  className="google-logo-large"
-                />
-              </div>
-            </div>
-            <div className="reviews-carousel">
-              <div
-                className={`reviews-track ${reviewTransition ? "" : "no-transition"}`}
-                style={{ transform: `translateX(-${reviewPageIndex * 100}%)` }}
-                onTransitionEnd={handleReviewTrackTransitionEnd}
-              >
-                {carouselReviewPages.map((page, pageIndex) => (
-                  <div className="review-page" key={`page-${pageIndex}`}>
-                    <div className="reviews-grid">
-                      {page.map((review, index) => (
-                        <article className="review-card" key={`${review.author}-${review.date}-${index}`}>
-                          <div className="review-meta">
-                            <span className="review-badge">{review.title}</span>
-                          </div>
-                          <p className="review-text">{review.text}</p>
-                          <div className="review-author">
-                            {review.author}, {review.country}
-                          </div>
-                          <div className="review-submeta">
-                            {review.type} - {review.date}
-                          </div>
-                          <img
-                            src="/images/rating-number.png"
-                            alt="Valoración 10"
-                            className="review-score-image"
-                            onError={(event) => {
-                              event.currentTarget.style.display = "none";
-                            }}
-                          />
-                        </article>
-                      ))}
-                    </div>
+      {/* 4. VENTAJAS */}
+      <section className="ventajas-section section-white">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-eyebrow">¿Por qué elegirnos?</span>
+            <h2 className="section-title">Las ventajas de hospedarte con nosotros</h2>
+          </div>
+          <div className="ventajas-grid">
+            {VENTAJAS.map((v) => {
+              const Icon = v.icon;
+              return (
+                <div key={v.title} className="ventaja-item">
+                  <div className="ventaja-icon">
+                    <Icon />
                   </div>
-                ))}
+                  <h5 className="ventaja-title">{v.title}</h5>
+                  <p className="ventaja-desc">{v.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. RESEÑAS */}
+      <section className="resenas-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-eyebrow">Lo que dicen nuestros huéspedes</span>
+            <h2 className="section-title">Opiniones reales</h2>
+          </div>
+          <div className="resenas-grid">
+            {RESENAS.map((r) => (
+              <article key={r.author} className="resena-card">
+                <div className="resena-stars">
+                  {Array.from({ length: r.rating }).map((_, i) => (
+                    <FaStar key={i} style={{ display: "inline" }} />
+                  ))}
+                </div>
+                <p className="resena-text">"{r.text}"</p>
+                <p className="resena-author">{r.author}</p>
+                <p className="resena-date">{r.type}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FAQ */}
+      <section className="faq-section section-white">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-eyebrow">FAQ</span>
+            <h2 className="section-title">Preguntas frecuentes</h2>
+          </div>
+          <FAQAccordion />
+        </div>
+      </section>
+
+      {/* 7. MAPA + CONTACTO */}
+      <section className="contacto-section">
+        <div className="container">
+          <div className="section-header" style={{ marginBottom: "40px" }}>
+            <span className="section-eyebrow">Cómo llegar</span>
+            <h2 className="section-title">Encuéntranos en Fuengirola</h2>
+          </div>
+          <div className="contacto-grid">
+            <div className="contacto-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3198.4!2d-4.62!3d36.54!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72f23d4d4d4d4d%3A0x0!2sHostal%20costabella!5e0!3m2!1ses!2ses!4v1"
+                width="600"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Mapa Hostal Costabella Fuengirola"
+              />
+            </div>
+            <div className="contacto-info">
+              <div className="contacto-col">
+                <h5>Teléfonos</h5>
+                <p>
+                  <a href="tel:+34614060645">+34 614 06 06 45</a><br />
+                  <a href="tel:+34951738151">+34 951 73 81 51</a>
+                </p>
+              </div>
+              <div className="contacto-col">
+                <h5>Email</h5>
+                <p>
+                  <a href="mailto:info@hostalcostabella.com">
+                    info@hostalcostabella.com
+                  </a>
+                </p>
+              </div>
+              <div className="contacto-col">
+                <h5>Dirección</h5>
+                <p>
+                  Av. de los Boliches 98<br />
+                  29640 Fuengirola (Málaga)
+                </p>
+              </div>
+              <div className="contacto-col">
+                <h5>Horarios</h5>
+                <p>
+                  Check-in: 15:00 – 20:00<br />
+                  Check-out: hasta 11:00<br />
+                  Recepción: 9:00 – 21:00
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="ubicacion-section" id="ubicacion">
-        <div className="ubicacion-map">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1520.4156259531956!2d-1.1088443809215651!3d40.34608926889388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5e73320d7177a5%3A0xf2f0671726916355!2sEstudios%20los%20Arcos%20Teruel!5e0!3m2!1ses!2ses!4v1777355252929!5m2!1ses!2ses"
-            width="600"
-            height="450"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Mapa de Estudios Los Arcos Teruel"
-          />
-        </div>
-        <div className="ubicacion-content reveal">
-          <p className="section-eyebrow">Ubicación</p>
-          <h2 className="section-title">Estamos en el casco histórico de Teruel</h2>
-          <p className="ubicacion-text">
-            Dirección: C. los Baches, 13, 44003 Teruel
-            <br />
-            Teléfono (atención 24 horas): 605 87 25 73
-          </p>
-          <div className="ubicacion-chip">
-            <strong>9,0</strong>
-            <span>Valoración de ubicación · 511 comentarios</span>
+      {/* 8. CTA FINAL */}
+      <section className="cta-final">
+        <div className="container">
+          <h2>Fuengirola te espera. Reserva sin intermediarios.</h2>
+          <p>Mejor precio garantizado reservando directamente con nosotros.</p>
+          <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+            <Link href="/habitaciones" className="btn btn-primary">
+              Ver habitaciones
+            </Link>
+            <a href="tel:+34614060645" className="btn btn-outline" style={{ borderColor: "#ffffff", color: "#ffffff" }}>
+              Llamar al hostal
+            </a>
           </div>
         </div>
       </section>
-
-      <section className="cta-final" id="cta">
-        <div className="cta-text">
-          <div className="cta-text-main">Todo listo para tu estancia en Teruel</div>
-          <div className="cta-text-sub">Apartamentos funcionales con todo lo que necesitas.</div>
-        </div>
-        <a href={BOOKING_HOTEL_URL} className="cta-btn" target="_blank" rel="noreferrer">
-          Reservar en Booking
-        </a>
-      </section>
-
-      <footer className="footer-nav" id="contacto">
-        <div className="footer-brand">
-          <Image
-            src="/images/logo-estudio-arcos.png"
-            alt="Logo Estudios Los Arcos"
-            width={120}
-            height={36}
-            className="footer-brand-logo"
-          />
-          <div className="footer-logo-text">ESTUDIOS LOS ARCOS</div>
-        </div>
-        <ul className="footer-links">
-          <li>
-            <a href="#alojamientos">Apartamentos</a>
-          </li>
-          <li>
-            <a href="#ubicacion">Ubicación</a>
-          </li>
-          <li>
-            <a href="#resenas">Opiniones</a>
-          </li>
-        </ul>
-      </footer>
     </>
   );
 }
