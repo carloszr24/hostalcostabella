@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { BOOKING_LOCALE_COOKIE } from "@/lib/booking/constants";
@@ -42,8 +43,14 @@ export default function BookingShell({ locale, children }: Props) {
     <div className="hb-shell">
       <div className="hb-shell-bar">
         <div className="container hb-shell-inner">
-          <Link href="/" className="hb-shell-brand">
-            Hostal <strong>Costabella</strong>
+          <Link href="/" className="hb-shell-brand" aria-label="Hostal Costabella — inicio">
+            <Image
+              src="/images/hotel_costabella_logo.png"
+              alt="Hostal Costabella"
+              width={180}
+              height={44}
+              className="hb-shell-logo"
+            />
           </Link>
           <div className="hb-shell-lang" role="group" aria-label="Language">
             <button

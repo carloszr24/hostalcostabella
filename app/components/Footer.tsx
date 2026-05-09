@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaInstagram, FaTiktok, FaPhone, FaEnvelope, FaLocationDot, FaClock } from "react-icons/fa6";
 
@@ -69,19 +70,16 @@ export default function Footer() {
             {/* Columna 2: vacío / logo */}
             <div className="footer-col" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
               <div style={{ textAlign: "center" }}>
-                <div style={{
-                  fontFamily: "var(--font-heading), Montserrat, sans-serif",
-                  fontSize: "1.5rem",
-                  fontWeight: 700,
-                  color: "#ffffff",
-                  letterSpacing: "2px",
-                  textTransform: "uppercase",
-                  lineHeight: 1.2,
-                  marginBottom: "8px",
-                }}>
-                  Hostal<br /><span style={{ color: "var(--hostal-yellow)" }}>Costabella</span>
-                </div>
-                <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.5)", marginTop: "8px" }}>
+                <Link href="/" style={{ display: "inline-block", marginBottom: "12px" }} aria-label="Hostal Costabella — inicio">
+                  <Image
+                    src="/images/hotel_costabella_logo.png"
+                    alt="Hostal Costabella"
+                    width={220}
+                    height={70}
+                    className="footer-brand-logo-img"
+                  />
+                </Link>
+                <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.5)", marginTop: "4px" }}>
                   Fuengirola · Málaga
                 </p>
                 <a

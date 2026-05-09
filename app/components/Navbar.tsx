@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaInstagram, FaTiktok, FaPhone } from "react-icons/fa6";
 
@@ -19,10 +20,15 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-inner">
-        <Link href="/" className="navbar-logo" onClick={() => setMenuOpen(false)}>
-          <span className="navbar-logo-text">
-            Hostal <span>Costabella</span>
-          </span>
+        <Link href="/" className="navbar-logo" onClick={() => setMenuOpen(false)} aria-label="Hostal Costabella — inicio">
+          <Image
+            src="/images/hotel_costabella_logo.png"
+            alt="Hostal Costabella"
+            width={200}
+            height={50}
+            className="navbar-logo-img"
+            priority
+          />
         </Link>
 
         <nav aria-label="Menú principal">

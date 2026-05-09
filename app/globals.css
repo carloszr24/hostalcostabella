@@ -179,7 +179,9 @@ small, .text-small {
   flex-shrink: 0;
 }
 
-.navbar-logo img {
+.navbar-logo img,
+.navbar-logo-img {
+  width: auto;
   max-width: 200px;
   height: auto;
   max-height: 50px;
@@ -1469,17 +1471,25 @@ small, .text-small {
 }
 
 .hb-shell-brand {
-  font-family: var(--font-heading), Montserrat, sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
 }
 
-.hb-shell-brand strong {
-  color: var(--hostal-yellow);
-  font-weight: 700;
+.hb-shell-logo {
+  width: auto;
+  max-width: 180px;
+  height: auto;
+  max-height: 44px;
+  object-fit: contain;
+}
+
+.footer-brand-logo-img {
+  width: auto;
+  max-width: 220px;
+  height: auto;
+  max-height: 72px;
+  object-fit: contain;
 }
 
 .hb-shell-lang {
