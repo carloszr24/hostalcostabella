@@ -453,6 +453,138 @@ small, .text-small {
   margin-bottom: 32px;
 }
 
+.hero-booking-widget {
+  padding: 24px 22px 22px;
+  text-align: center;
+}
+
+.hero-widget-eyebrow {
+  font-size: 0.76rem;
+  color: #888;
+  margin-bottom: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.hero-widget-lead {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 20px;
+  line-height: 1.55;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-booking-form {
+  text-align: left;
+}
+
+.hero-booking-fields {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.hero-booking-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hero-booking-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--hostal-blue);
+}
+
+.hero-booking-input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1.5px solid var(--hostal-border);
+  border-radius: 7px;
+  font-family: var(--font-body), "Source Sans 3", sans-serif;
+  font-size: 0.95rem;
+  color: var(--hostal-dark);
+  background: #ffffff;
+}
+
+.hero-booking-input:focus {
+  outline: none;
+  border-color: var(--hostal-blue);
+}
+
+.hero-booking-checkout-hint {
+  font-size: 0.82rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.hero-booking-checkout-hint strong {
+  color: var(--hostal-dark);
+}
+
+.hero-booking-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.hero-booking-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 15px 24px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-booking-btn-primary {
+  background: var(--hostal-yellow);
+  color: var(--hostal-dark);
+}
+
+.hero-booking-btn-primary:hover {
+  background: var(--hostal-blue);
+  color: #ffffff;
+}
+
+.hero-booking-btn-wa {
+  background: #25d366;
+  color: #ffffff;
+}
+
+.hero-booking-btn-wa:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+  .hero-booking-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-booking-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
 .hero-actions {
   display: flex;
   gap: 16px;

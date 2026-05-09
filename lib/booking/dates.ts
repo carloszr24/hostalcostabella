@@ -40,3 +40,12 @@ function toISO(d: Date): string {
   const day = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${day}`;
 }
+
+/** Salida = entrada + número de noches (días de estancia en la habitación). */
+export function checkoutAfterNights(checkinISO: string, nights: number): string {
+  const d = parseISODate(checkinISO);
+  if (!d || nights < 1) return checkinISO;
+  const out = new Date(d);
+  out.setDate(out.getDate() + nights);
+  return toISO(out);
+}

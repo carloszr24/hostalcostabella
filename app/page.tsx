@@ -1,12 +1,12 @@
 import Link from "next/link";
 import FAQAccordion from "./components/FAQAccordion";
+import HeroBookingWidget from "./components/HeroBookingWidget";
 import {
   FaMapLocationDot,
   FaBed,
   FaTag,
   FaHandshake,
   FaStar,
-  FaWhatsapp,
 } from "react-icons/fa6";
 
 /* ── Datos ── */
@@ -106,79 +106,6 @@ const RESENAS = [
   },
 ];
 
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hola 👋, me gustaría consultar disponibilidad en Hostal Costabella para las siguientes fechas:\n\n📅 Entrada:\n📅 Salida:\n👥 Número de huéspedes:\n\nGracias 😊"
-);
-
-/* ── Componente de Hero con Cloudbeds ── */
-function HeroCloudbedsPlaceholder() {
-  return (
-    <div
-      className="hero-widget"
-      style={{
-        padding: "28px",
-        textAlign: "center",
-      }}
-    >
-      <p style={{ fontSize: "0.8rem", color: "#888", marginBottom: "10px", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-        Motor de reservas
-      </p>
-      <p style={{ fontSize: "0.95rem", color: "#444", marginBottom: "18px" }}>
-        Reserva directamente en el hostal y obtén el mejor precio garantizado.
-      </p>
-      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
-        <Link
-          href="/reservar"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            background: "var(--hostal-yellow)",
-            color: "var(--hostal-dark)",
-            fontWeight: 700,
-            fontSize: "0.85rem",
-            textTransform: "uppercase",
-            letterSpacing: "2px",
-            padding: "16px 28px",
-            borderRadius: "7px",
-            textDecoration: "none",
-            transition: "background 0.2s ease, color 0.2s ease",
-          }}
-        >
-          Reservar ahora
-        </Link>
-        <a
-          href={`https://wa.me/34614060645?text=${WHATSAPP_MESSAGE}`}
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            background: "#25d366",
-            color: "#ffffff",
-            fontWeight: 700,
-            fontSize: "0.85rem",
-            textTransform: "uppercase",
-            letterSpacing: "2px",
-            padding: "16px 28px",
-            borderRadius: "7px",
-            textDecoration: "none",
-          }}
-        >
-          <FaWhatsapp />
-          Consultar por WhatsApp
-        </a>
-      </div>
-      {/* Cuando tengas el Property ID de Cloudbeds, reemplaza esto por:
-        <div id="ibe-container" />
-        y añade el script en un componente client con next/script:
-        <Script src="https://hotels.cloudbeds.com/widget/load/[PROPERTY_ID]" strategy="lazyOnload" />
-      */}
-    </div>
-  );
-}
-
 /* ── Page ── */
 export default function Home() {
   return (
@@ -206,11 +133,8 @@ export default function Home() {
             Hostal Costabella, a pasos de la playa y el corazón de Fuengirola.
             Reserva directamente y consigue el mejor precio.
           </p>
-          <HeroCloudbedsPlaceholder />
+          <HeroBookingWidget />
           <div className="hero-actions">
-            <Link href="/reservar" className="btn btn-primary">
-              Reservar ahora
-            </Link>
             <a href="tel:+34614060645" className="btn btn-white">
               Llamar ahora
             </a>

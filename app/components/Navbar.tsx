@@ -3,12 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaTiktok, FaPhone } from "react-icons/fa6";
+import { FaPhone } from "react-icons/fa6";
 
 const NAV_LINKS = [
-  { label: "Inicio", href: "/" },
   { label: "Habitaciones", href: "/habitaciones" },
-  { label: "Reservar", href: "/reservar" },
   { label: "Nosotros", href: "/nosotros" },
   { label: "Descubre Fuengirola", href: "/que-hacer-en-fuengirola" },
   { label: "Contacto", href: "/contacto" },
@@ -40,36 +38,6 @@ export default function Navbar() {
             ))}
           </ul>
         </nav>
-
-        <div className="navbar-socials" aria-label="Redes sociales">
-          <a
-            href="https://www.facebook.com/profile.php?id=61577588980046"
-            target="_blank"
-            rel="noreferrer"
-            className="navbar-social-link"
-            aria-label="Facebook"
-          >
-            <FaFacebook />
-          </a>
-          <a
-            href="https://www.instagram.com/hostal.costabella"
-            target="_blank"
-            rel="noreferrer"
-            className="navbar-social-link"
-            aria-label="Instagram"
-          >
-            <FaInstagram />
-          </a>
-          <a
-            href="https://www.tiktok.com/@hostal.costabella"
-            target="_blank"
-            rel="noreferrer"
-            className="navbar-social-link"
-            aria-label="TikTok"
-          >
-            <FaTiktok />
-          </a>
-        </div>
 
         <div className="navbar-cta">
           <a href="tel:+34614060645" aria-label="Llamar al 614 060 645">
