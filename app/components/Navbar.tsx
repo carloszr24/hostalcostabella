@@ -7,6 +7,7 @@ import { FaFacebook, FaInstagram, FaTiktok, FaPhone } from "react-icons/fa6";
 const NAV_LINKS = [
   { label: "Inicio", href: "/" },
   { label: "Habitaciones", href: "/habitaciones" },
+  { label: "Reservar", href: "/reservar" },
   { label: "Nosotros", href: "/nosotros" },
   { label: "Descubre Fuengirola", href: "/que-hacer-en-fuengirola" },
   { label: "Contacto", href: "/contacto" },

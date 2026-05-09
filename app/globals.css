@@ -659,6 +659,7 @@ small, .text-small {
 .room-card-btn {
   display: block;
   text-align: center;
+  text-decoration: none;
   background: var(--hostal-yellow);
   color: var(--hostal-dark);
   font-size: 0.82rem;
@@ -1440,5 +1441,470 @@ small, .text-small {
 
   .navbar-logo img {
     max-width: 140px;
+  }
+}
+
+/* ── Motor de reservas (Hostal Costabella) ── */
+.hb-shell {
+  padding-top: 70px;
+  min-height: 100vh;
+  background: var(--hostal-bg);
+}
+
+.hb-shell-bar {
+  background: var(--hostal-dark);
+  border-bottom: 3px solid var(--hostal-yellow);
+  position: sticky;
+  top: 70px;
+  z-index: 90;
+}
+
+.hb-shell-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.hb-shell-brand {
+  font-family: var(--font-heading), Montserrat, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.hb-shell-brand strong {
+  color: var(--hostal-yellow);
+  font-weight: 700;
+}
+
+.hb-shell-lang {
+  display: flex;
+  gap: 8px;
+}
+
+.hb-lang-btn {
+  min-width: 44px;
+  padding: 8px 12px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.hb-lang-btn:hover {
+  border-color: var(--hostal-yellow);
+  color: var(--hostal-yellow);
+}
+
+.hb-lang-btn.is-active {
+  background: var(--hostal-yellow);
+  border-color: var(--hostal-yellow);
+  color: var(--hostal-dark);
+}
+
+.hb-steps-wrap {
+  background: #ffffff;
+  border-bottom: 1px solid var(--hostal-border);
+  padding: 16px 0;
+}
+
+.hb-steps {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+.hb-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+}
+
+.hb-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hostal-bg);
+  border: 2px solid var(--hostal-border);
+  color: var(--hostal-dark);
+  font-size: 0.82rem;
+}
+
+.hb-step.is-done .hb-step-num {
+  background: var(--hostal-dark);
+  border-color: var(--hostal-dark);
+  color: var(--hostal-yellow);
+}
+
+.hb-step.is-current {
+  color: var(--hostal-dark);
+}
+
+.hb-step.is-current .hb-step-num {
+  background: var(--hostal-yellow);
+  border-color: var(--hostal-yellow);
+  color: var(--hostal-dark);
+}
+
+.hb-page {
+  padding: 48px 0 80px;
+}
+
+.hb-page-success {
+  padding-top: 56px;
+}
+
+.hb-narrow {
+  max-width: 640px;
+}
+
+.hb-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.hb-title {
+  font-family: var(--font-heading), Montserrat, sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: var(--hostal-dark);
+  margin-bottom: 12px;
+}
+
+.hb-lead {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.hb-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 12px 40px rgba(16, 69, 97, 0.1);
+  border: 1px solid rgba(16, 69, 97, 0.08);
+}
+
+.hb-card-muted {
+  background: var(--hostal-bg);
+  margin-bottom: 20px;
+}
+
+.hb-card-highlight {
+  border-left: 4px solid var(--hostal-yellow);
+}
+
+.hb-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.hb-form-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.hb-form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hb-field-full {
+  grid-column: 1 / -1;
+}
+
+.hb-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hostal-blue);
+}
+
+.hb-legend {
+  margin-bottom: 10px;
+}
+
+.hb-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--hostal-border);
+  border-radius: 7px;
+  font-family: var(--font-body), "Source Sans 3", sans-serif;
+  font-size: 1rem;
+  color: var(--hostal-dark);
+  transition: border-color 0.2s ease;
+}
+
+.hb-input:focus {
+  outline: none;
+  border-color: var(--hostal-blue);
+}
+
+.hb-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.hb-summary-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.hb-summary-item {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--hostal-border);
+}
+
+.hb-summary-k {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hostal-blue);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.hb-room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+  margin-bottom: 32px;
+}
+
+.hb-room-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--hostal-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.hb-room-card:hover {
+  box-shadow: 0 12px 36px rgba(16, 69, 97, 0.14);
+  transform: translateY(-2px);
+}
+
+.hb-room-card-top {
+  padding: 20px 20px 12px;
+}
+
+.hb-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #e8f4ea;
+  color: #1a6b3a;
+  margin-bottom: 12px;
+}
+
+.hb-badge.is-warn {
+  background: #fff8e6;
+  color: #8a6d1a;
+}
+
+.hb-room-name {
+  font-family: var(--font-heading), Montserrat, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--hostal-dark);
+  margin-bottom: 8px;
+}
+
+.hb-room-meta {
+  font-size: 0.88rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.hb-room-pricing {
+  padding: 0 20px 16px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: auto;
+}
+
+.hb-price-line {
+  font-size: 0.9rem;
+  color: #444;
+  margin-top: 12px;
+}
+
+.hb-price-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: #555;
+}
+
+.hb-price-total strong {
+  font-size: 1.25rem;
+  color: var(--hostal-dark);
+}
+
+.hb-price-note {
+  font-size: 0.78rem;
+  color: #888;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.hb-room-cta {
+  width: calc(100% - 40px);
+  margin: 0 20px 20px;
+  justify-content: center;
+}
+
+.hb-footer-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+}
+
+.hb-error {
+  background: #fff0f0;
+  border: 1px solid #f0caca;
+  color: #8a1f1f;
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.hb-inline-summary {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.hb-pay-total {
+  margin-top: 12px;
+  font-size: 1.05rem;
+}
+
+.hb-pay-methods {
+  border: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.hb-radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #444;
+  cursor: pointer;
+}
+
+.hb-pay-card-fields {
+  margin-top: 8px;
+}
+
+.hb-success-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--hostal-yellow);
+  color: var(--hostal-dark);
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(252, 236, 9, 0.35);
+}
+
+.hb-locator {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hb-locator-label {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hostal-blue);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.hb-locator-code {
+  font-family: ui-monospace, monospace;
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+  color: var(--hostal-dark);
+}
+
+.hb-muted-note {
+  margin-top: 16px;
+  font-size: 0.88rem;
+  color: #777;
+}
+
+@media (max-width: 640px) {
+  .hb-form-grid,
+  .hb-form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hb-shell-inner {
+    flex-wrap: wrap;
+  }
+
+  .hb-steps {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

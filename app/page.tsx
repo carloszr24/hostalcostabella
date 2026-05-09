@@ -128,7 +128,7 @@ function HeroCloudbedsPlaceholder() {
       </p>
       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
         <Link
-          href="/habitaciones"
+          href="/reservar"
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -145,7 +145,7 @@ function HeroCloudbedsPlaceholder() {
             transition: "background 0.2s ease, color 0.2s ease",
           }}
         >
-          Ver habitaciones
+          Reservar ahora
         </Link>
         <a
           href={`https://wa.me/34614060645?text=${WHATSAPP_MESSAGE}`}
@@ -208,8 +208,8 @@ export default function Home() {
           </p>
           <HeroCloudbedsPlaceholder />
           <div className="hero-actions">
-            <Link href="/habitaciones" className="btn btn-primary">
-              Ver habitaciones
+            <Link href="/reservar" className="btn btn-primary">
+              Reservar ahora
             </Link>
             <a href="tel:+34614060645" className="btn btn-white">
               Llamar ahora
@@ -234,8 +234,8 @@ export default function Home() {
               el espacio perfecto para descansar y disfrutar del sol mediterráneo.
               Reserva directamente con nosotros para garantizar el mejor precio disponible.
             </p>
-            <Link href="/habitaciones" className="btn btn-primary">
-              Ver habitaciones →
+            <Link href="/reservar" className="btn btn-primary">
+              Reservar ahora →
             </Link>
           </div>
           <div>
@@ -272,14 +272,9 @@ export default function Home() {
                       <span key={f} className="room-card-feature">{f}</span>
                     ))}
                   </div>
-                  <a
-                    href={`https://wa.me/34614060645?text=${WHATSAPP_MESSAGE}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="room-card-btn"
-                  >
+                  <Link href="/reservar" className="room-card-btn">
                     Reservar
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}
@@ -408,8 +403,8 @@ export default function Home() {
           <h2>Fuengirola te espera. Reserva sin intermediarios.</h2>
           <p>Mejor precio garantizado reservando directamente con nosotros.</p>
           <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/habitaciones" className="btn btn-primary">
-              Ver habitaciones
+            <Link href="/reservar" className="btn btn-primary">
+              Reservar ahora
             </Link>
             <a href="tel:+34614060645" className="btn btn-outline" style={{ borderColor: "#ffffff", color: "#ffffff" }}>
               Llamar al hostal

@@ -101,18 +101,25 @@ export default function HabitacionesPage() {
       >
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
           <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.95rem" }}>
-            <strong style={{ color: "var(--hostal-yellow)" }}>Motor de reservas</strong> — Consulta disponibilidad y reserva directamente:
+            <strong style={{ color: "var(--hostal-yellow)" }}>Reservas en la web oficial</strong> — Elige fechas y confirma al mejor precio:
           </p>
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <Link
+              href="/reservar"
+              className="btn btn-primary"
+              style={{ padding: "12px 22px", fontSize: "0.8rem" }}
+            >
+              Reservar ahora
+            </Link>
             <a
               href={`https://wa.me/34614060645?text=${WHATSAPP_MESSAGE}`}
               target="_blank"
               rel="noreferrer"
-              className="btn btn-primary"
-              style={{ padding: "12px 22px", fontSize: "0.8rem" }}
+              className="btn btn-outline"
+              style={{ padding: "12px 22px", fontSize: "0.8rem", borderColor: "rgba(255,255,255,0.4)", color: "#ffffff" }}
             >
               <FaWhatsapp />
-              Consultar disponibilidad
+              WhatsApp
             </a>
             <a
               href="tel:+34614060645"
@@ -191,14 +198,9 @@ export default function HabitacionesPage() {
                       </span>
                     ))}
                   </div>
-                  <a
-                    href={`https://wa.me/34614060645?text=${WHATSAPP_MESSAGE}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="room-card-btn"
-                  >
+                  <Link href="/reservar" className="room-card-btn">
                     Reservar esta habitación
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}
@@ -272,11 +274,15 @@ export default function HabitacionesPage() {
               flexWrap: "wrap",
             }}
           >
+            <Link href="/reservar" className="btn btn-primary">
+              Reservar ahora
+            </Link>
             <a
               href={`https://wa.me/34614060645?text=${WHATSAPP_MESSAGE}`}
               target="_blank"
               rel="noreferrer"
-              className="btn btn-primary"
+              className="btn btn-outline"
+              style={{ borderColor: "#ffffff", color: "#ffffff" }}
             >
               <FaWhatsapp />
               WhatsApp

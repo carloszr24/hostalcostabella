@@ -109,6 +109,7 @@ export default function Footer() {
               <ul className="footer-menu-list">
                 <li><Link href="/">Inicio</Link></li>
                 <li><Link href="/habitaciones">Habitaciones</Link></li>
+                <li><Link href="/reservar">Reservar</Link></li>
                 <li><Link href="/nosotros">Nosotros</Link></li>
                 <li><Link href="/que-hacer-en-fuengirola">Descubre Fuengirola</Link></li>
                 <li><Link href="/contacto">Contacto</Link></li>
