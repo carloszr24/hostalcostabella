@@ -122,11 +122,7 @@ export default function Home() {
         >
           <source src="/images/video_hero.mp4" type="video/mp4" />
         </video>
-        <div className="hero-overlay" aria-hidden="true" />
         <div className="hero-content">
-          <div className="hero-text-block">
-            <h1 className="hero-tagline">Un lugar, una misma historia</h1>
-          </div>
           <div className="hero-booking-slot">
             <HeroBookingWidget />
           </div>

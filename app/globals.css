@@ -394,57 +394,29 @@ small, .text-small {
   z-index: 0;
 }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  /* Capa ligera: el vídeo ya lleva la web; solo un poco de lectura para el texto */
-  background: linear-gradient(
-    180deg,
-    rgba(16, 69, 97, 0.35) 0%,
-    rgba(11, 32, 42, 0.25) 45%,
-    rgba(11, 32, 42, 0.5) 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-}
-
 .hero-content {
   position: relative;
   z-index: 2;
   width: 100%;
   max-width: 100%;
-  padding: clamp(24px, 4vh, 48px) clamp(16px, 3vw, 32px) clamp(20px, 5vh, 56px);
+  padding: clamp(16px, 3vh, 28px) clamp(16px, 3vw, 32px) clamp(20px, 7vh, 88px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   text-align: center;
   flex: 1;
   min-height: calc(100vh - 70px);
   min-height: calc(100dvh - 70px);
 }
 
-.hero-text-block {
-  flex-shrink: 0;
-}
-
-/* Sobre la zona típica del CTA en una captura de web (hero / barra de reserva) */
+/* Abajo del viewport: tapa el CTA “RESERVA AQUÍ” del grab en el vídeo */
 .hero-booking-slot {
   width: 100%;
   max-width: 920px;
-  margin-top: clamp(32px, 14vh, 200px);
+  margin-top: 0;
   z-index: 3;
   position: relative;
-}
-
-.hero-tagline {
-  color: #ffffff;
-  margin: 0 auto;
-  max-width: 22em;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
-  font-size: clamp(1.65rem, 4.2vw, 2.35rem);
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: 0.02em;
 }
 
 /* Motor de reservas encima del vídeo (tapa el botón antiguo del grab) */
@@ -1527,7 +1499,7 @@ small, .text-small {
   }
 
   .hero-content {
-    padding: 40px 16px;
+    padding: 20px 16px clamp(24px, 9vh, 72px);
   }
 
   .page-hero {
