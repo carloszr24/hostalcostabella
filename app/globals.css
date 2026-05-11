@@ -177,6 +177,7 @@ small, .text-small {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  margin-right: auto;
 }
 
 .navbar-logo img,
@@ -202,12 +203,25 @@ small, .text-small {
   color: var(--hostal-yellow);
 }
 
+.navbar-main {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
 .navbar-menu {
   display: flex;
   align-items: center;
   list-style: none;
   gap: 4px;
-  margin-left: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-cta {
+  margin: 0 0 0 16px;
+  flex-shrink: 0;
 }
 
 .navbar-menu a {
@@ -244,11 +258,6 @@ small, .text-small {
 .navbar-social-link:hover {
   color: var(--hostal-yellow);
   transform: translateY(-2px);
-}
-
-.navbar-cta {
-  margin-left: 20px;
-  flex-shrink: 0;
 }
 
 .navbar-cta a {

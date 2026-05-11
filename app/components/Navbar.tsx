@@ -29,7 +29,7 @@ export default function Navbar() {
           />
         </Link>
 
-        <nav aria-label="Menú principal">
+        <nav className="navbar-main" aria-label="Menú principal">
           <ul className="navbar-menu">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
