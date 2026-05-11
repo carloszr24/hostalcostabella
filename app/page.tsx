@@ -112,27 +112,24 @@ export default function Home() {
     <>
       {/* 1. HERO */}
       <section className="hero">
-        {/* Coloca el vídeo del hostal en /public/videos/hero-costabella.mp4 */}
         <video
           className="hero-video-bg"
           autoPlay
           muted
           loop
           playsInline
-          poster="/images/hero-costabella.jpg"
+          preload="auto"
         >
-          <source src="/videos/hero-costabella.mp4" type="video/mp4" />
+          <source src="/images/video_hero.mp4" type="video/mp4" />
         </video>
-        <div className="hero-overlay" />
+        <div className="hero-overlay" aria-hidden="true" />
         <div className="hero-content">
-          <p className="hero-eyebrow">Tu alojamiento en Fuengirola</p>
-          <h1 className="hero-title">
-            Fuengirola te espera
-          </h1>
-          <p className="hero-subtitle">
-            Hostal Costabella, a pasos de la playa y del centro de Fuengirola.
-          </p>
-          <HeroBookingWidget />
+          <div className="hero-text-block">
+            <h1 className="hero-tagline">Un lugar, una misma historia</h1>
+          </div>
+          <div className="hero-booking-slot">
+            <HeroBookingWidget />
+          </div>
         </div>
       </section>
 
