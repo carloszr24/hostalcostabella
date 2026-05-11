@@ -381,7 +381,8 @@ small, .text-small {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  /* Encuadre un poco más alto para alinear mejor con el motor de reservas */
+  object-position: center 38%;
   z-index: 0;
 }
 
@@ -399,7 +400,8 @@ small, .text-small {
   z-index: 2;
   width: 100%;
   max-width: 100%;
-  padding: clamp(16px, 3vh, 28px) clamp(16px, 3vw, 32px) clamp(20px, 7vh, 88px);
+  padding: clamp(16px, 3vh, 28px) clamp(16px, 3vw, 32px)
+    max(clamp(48px, 12vh, 132px), env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1499,7 +1501,7 @@ small, .text-small {
   }
 
   .hero-content {
-    padding: 20px 16px clamp(24px, 9vh, 72px);
+    padding: 20px 16px max(clamp(40px, 11vh, 100px), env(safe-area-inset-bottom, 0px));
   }
 
   .page-hero {
